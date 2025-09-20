@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagem em Tela Cheia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="fullscreen-container">
+        <img src="imagem.jpg" alt="Imagem em tela cheia" class="fullscreen-image" id="mainImage">
+    </div>
+    
+    <script>
+        // Função para ajustar a imagem automaticamente
+        function adjustImage() {
+            const img = document.getElementById('mainImage');
+            const container = document.querySelector('.fullscreen-container');
+            
+            // Verificar se a imagem carregou
+            if (img.complete) {
+                const imgAspectRatio = img.naturalWidth / img.naturalHeight;
+                const containerAspectRatio = window.innerWidth / window.innerHeight;
+                
+                if (imgAspectRatio > containerAspectRatio) {
+                    // Imagem é mais larga que o container
+                    img.style.width = '100vw';
+                    img.style.height = 'auto';
+                } else {
+                    // Imagem é mais alta que o container
+                    img.style.height = '100vh';
+                    img.style.width = 'auto';
+                }
+            }
+        }
+        
+        // Ajustar quando a imagem carregar
+        document.getElementById('mainImage').onload = adjustImage;
+        
+        // Ajustar quando a janela redimensionar
+        window.addEventListener('resize', adjustImage);
+        
+        // Ajustar quando a página carregar
+        window.addEventListener('load', adjustImage);
+    </script>
+</body>
+</html>
